@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carta Digital - Cafetería</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+        header {
+            background-color: #6b4f4f;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        .menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 2rem;
+        }
+        .menu-item {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 1rem;
+            padding: 1rem;
+            width: 200px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .menu-item h3 {
+            margin: 0.5rem 0;
+        }
+        .menu-item button {
+            background-color: #6b4f4f;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .menu-item button:hover {
+            background-color: #5a3e3e;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>☕ Carta Digital - Cafetería</h1>
+    </header>
+
+    <div class="menu">
+
+        <div class="menu-item">
+            <h3>Café Expreso</h3>
+            <p>$2.00</p>
+            <button onclick="ordenar('Café Expreso')">Ordenar</button>
+        </div>
+
+        <div class="menu-item">
+            <h3>Café con Leche</h3>
+            <p>$3.50</p>
+            <button onclick="ordenar('Café con Leche')">Ordenar</button>
+        </div>
+
+        <div class="menu-item">
+            <h3>Capuchino</h3>
+            <p>$3.00</p>
+            <button onclick="ordenar('Capuchino')">Ordenar</button>
+        </div>
+
+    </div>
+
+    <script>
+        function ordenar(tipoCafe) {
+            fetch('http://localhost:3000/pedido', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ tipo: tipoCafe })
+            })
+            .then(response => response.json())
+            .then(data => alert("☕ Pedido enviado: " + tipoCafe))
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
